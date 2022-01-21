@@ -6,20 +6,37 @@ app.secret_key= "secret_key"
 @app.route("/", methods=["GET"])
 def vistaContador():
     if('contador' in session):
-        session["contador"]+=1
+        session["contador"]+=session["incremento"]
     else:
         session["contador"]=1
+        session["incremento"]=1
     return render_template('index.html')
 
 @app.route("/", methods=["POST"])
 def aumentaContador():
     if 'contador' in session:
         print('el contador existe!')
-        session["contador"]+=1
+        if 'incremento' in session:
+            session["incremento"]= int(request.form["incremento"])
+            session["contador"]+=session["incremento"]
+        else:
+            print("el valor de incremento no existe!")
+            return redirect("/")
         return redirect("/count")
     else:
         print('el contador NO existe!')
         return redirect("/")
+
+@app.route("/2", methods=["POST"])
+def aumentaContador2():
+    if 'contador' in session:
+        print('el contador existe!')
+        session["contador"]+=2
+        return redirect("/count")
+    else:
+        print('el contador NO existe!')
+        return redirect("/")
+
 
 @app.route("/count", methods=["GET"])
 def renderContadorCount():

@@ -17,7 +17,12 @@
         </h3>
         <div class="form-container">
             <form action="/" method="post">
+                <label for="incremento" class="label-incremento">Valor de incremento: </label>
+                <input type="number" value="{{session['incremento']}}" name="incremento" id="incremento" class="input-incremento">
                 <button type="submit" class="btn btn-blue">Click</button>
+            </form>
+            <form action="/2" method="post">
+                <button type="submit" class="btn btn-purple">+2</button>
             </form>
             <form action="/destroy_session" method="post">
                 <button type="submit" class="btn btn-red">Reset</button>
